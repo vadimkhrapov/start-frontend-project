@@ -1,5 +1,5 @@
 {
-  "name": "start_front_project",
+  "name": "start_frontend_project",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,6 +9,7 @@
   "author": "Vadim Khrapov",
   "license": "ISC",
   "devDependencies": {
+    "browser-sync": "^2.18.13",
     "gulp": "^3.9.1",
     "gulp-sass": "^3.1.0"
   }

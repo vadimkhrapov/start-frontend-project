@@ -1,15 +1,26 @@
 var gulp = require('gulp'),
-    sass = require('gulp-sass');
+    sass = require('gulp-sass'),
+    browserSync = require('browser-sync').create();
+
+gulp.task('serve', ['sass'], function() {
+
+    browserSync.init({
+        server: "./src"
+    });
+
+    gulp.watch("src/sass/*.sass", ['sass']);
+    gulp.watch("src/*.html").on('change', browserSync.reload);
+    gulp.watch("src/js/*.js").on('change', browserSync.reload);
+});
 
 gulp.task('sass', function(){ 
     return gulp.src('src/sass/*.sass') 
         .pipe(sass()) 
-        .pipe(gulp.dest('src/css')); 
+        .pipe(gulp.dest('src/css'))
+        .pipe(browserSync.stream());
 });
 
-gulp.task('watch', function () {
-    gulp.watch('src/sass/**/*.sass', ['sass']);
-});
+gulp.task('default', ['serve']);
 
 gulp.task('build', function () {
     gulp.src('src/css/*.css').pipe(gulp.dest('dist/css'));
@@ -18,3 +29,4 @@ gulp.task('build', function () {
     gulp.src('src/fonts/*').pipe(gulp.dest('dist/fonts'));
     gulp.src('src/img/*').pipe(gulp.dest('dist/img'));
 });
+
